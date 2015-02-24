@@ -26,10 +26,10 @@ public class Ev3Controller {
 		if(connected()){
 			try {
 				if(forwards){
-					gogoMotorA.forward();
+					gogoMotorA.backward();
 					gogoMotorB.forward();
 				}else{
-					gogoMotorA.backward();
+					gogoMotorA.forward();
 					gogoMotorB.backward();
 				}
 			} catch (RemoteException e) {
