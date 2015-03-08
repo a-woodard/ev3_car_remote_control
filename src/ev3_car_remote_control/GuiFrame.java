@@ -28,7 +28,7 @@ public class GuiFrame extends JFrame {
 	}
 
 	private void setupHotkeys() {
-		setupKeyHashMap();
+		setupKeyHashMap_tracked_vehicle();
 
 		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		kfm.addKeyEventDispatcher( new KeyEventDispatcher() {
@@ -47,14 +47,27 @@ public class GuiFrame extends JFrame {
 		});
 	}
 
-	private void setupKeyHashMap() {
+	private void setupKeyHashMap_front_turn_vehicle() {
+//		keyActions = new HashMap<Integer, Action>();
+//		
+//		keyActions.put(KeyEvent.VK_W, new GogoAction(ev3Controller, true,MotorPort.A,MotorSize.LARGE));
+//		keyActions.put(KeyEvent.VK_S, new GogoAction(ev3Controller, false));
+//		
+//		keyActions.put(KeyEvent.VK_A, new TurnAction(ev3Controller, false));
+//		keyActions.put(KeyEvent.VK_D, new TurnAction(ev3Controller, true));
+	}
+	
+	private void setupKeyHashMap_tracked_vehicle() {
 		keyActions = new HashMap<Integer, Action>();
 		
-		keyActions.put(KeyEvent.VK_W, new GogoAction(ev3Controller, true));
-		keyActions.put(KeyEvent.VK_S, new GogoAction(ev3Controller, false));
+		MotorInfo ma = new MotorInfo(MotorPort.B, MotorSize.L, 100, 300);
+		MotorInfo mb = new MotorInfo(MotorPort.A, MotorSize.L, 100, 300);
 		
-		keyActions.put(KeyEvent.VK_A, new TurnAction(ev3Controller, false));
-		keyActions.put(KeyEvent.VK_D, new TurnAction(ev3Controller, true));
+		keyActions.put(KeyEvent.VK_W, new GogoAction(ev3Controller, false,ma));
+		keyActions.put(KeyEvent.VK_E, new GogoAction(ev3Controller, false,mb));
+		
+		keyActions.put(KeyEvent.VK_S, new GogoAction(ev3Controller, true,ma));
+		keyActions.put(KeyEvent.VK_D, new GogoAction(ev3Controller, true,mb));
 	}
 
 	private void setupFrame(String ip) {
@@ -77,6 +90,9 @@ public class GuiFrame extends JFrame {
 			}
 		});
 	}
+	
+	
+	
 }
 
 

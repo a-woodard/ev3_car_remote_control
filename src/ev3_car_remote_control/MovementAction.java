@@ -9,16 +9,16 @@ import javax.swing.AbstractAction;
 public abstract class MovementAction extends AbstractAction{
 	protected Ev3Controller ev3;
 	protected boolean clockwiseDirection;
+	protected MotorInfo motorInfo;
 	
 	protected boolean isCurrentlyPressed = false;
 	
-	public MovementAction(Ev3Controller ev3, boolean clockwiseDirection){
+	public MovementAction(Ev3Controller ev3, boolean clockwiseDirection, MotorInfo motorInfo){
 		this.ev3 = ev3;
 		this.clockwiseDirection = clockwiseDirection;
+		this.motorInfo = motorInfo;
 		
-		
-//		System.out.println("here");
-		
+		ev3.addMotor(motorInfo);
 	}
 	
 	public abstract void downAction();	

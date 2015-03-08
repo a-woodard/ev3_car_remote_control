@@ -10,8 +10,8 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class GuiPanel extends JPanel {
 	
@@ -51,15 +51,10 @@ public class GuiPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			GuiFrame outerFrame = (GuiFrame) SwingUtilities.getWindowAncestor(getOuter());
 			
-			try {
-				outerFrame.ev3Controller.connectAndSetupMotors(ipTextBox.getText());
-			} catch (Exception e1) {
-				btnConnect.setBackground(Color.red);
-				e1.printStackTrace();
-			}
-			
-			if(outerFrame.ev3Controller.connected()){
+			if(outerFrame.ev3Controller.connectAndSetupMotors(ipTextBox.getText())){
 				btnConnect.setBackground(Color.green);
+			}else{
+				btnConnect.setBackground(Color.red);
 			}
 		}
 	}
@@ -81,7 +76,8 @@ public class GuiPanel extends JPanel {
 				timeLastEventFired = currentTime;
 				
 				if(outerFrame.ev3Controller.connected()){
-					outerFrame.ev3Controller.setMoveSpeed(powerSlider.getValue());
+					outerFrame.ev3Controller.setMoveSpeed(MotorPort.A,powerSlider.getValue());
+					outerFrame.ev3Controller.setMoveSpeed(MotorPort.B,powerSlider.getValue());
 				}
 			}
 		}

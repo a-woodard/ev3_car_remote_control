@@ -1,29 +1,27 @@
 package ev3_car_remote_control;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 
 public  class GogoAction extends MovementAction{
 
-	public GogoAction(Ev3Controller ev3, boolean clockwiseDirection) {
-		super(ev3,clockwiseDirection);
+	public GogoAction(Ev3Controller ev3, boolean clockwiseDirection, MotorInfo motorInfo) {
+		super(ev3,clockwiseDirection,motorInfo);
 	}
 
 	@Override
 	public void downAction() {
-		ev3.accelerate(clockwiseDirection);
+		ev3.accelerate(motorInfo.port, clockwiseDirection);
 	}
 
 	@Override
 	public void upAction() {
-		ev3.stopAccelerate();
+		ev3.stopAccelerate(motorInfo.port);
 	}
 
 	@Override
 	public void changeSpeed(int newSpeed) {
-		ev3.setMoveSpeed(newSpeed);
-		if(!isCurrentlyPressed){
+		ev3.setMoveSpeed(motorInfo.port, newSpeed);
+		if(isCurrentlyPressed){
 			downAction();
 		}
 	}
